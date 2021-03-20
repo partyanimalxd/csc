@@ -1,0 +1,86 @@
+def create_club():            #create a table
+    f=open('club.dat','wb')
+    while True:
+        mid=int(input('enter no:'))
+        mname=input('enter name:')
+        typ=input('enter type[S/L]:')
+        rec=[mid,mname,typ]
+        pickle.dump(rec,f)
+        cont=input('do you want to add more ..... Y/N')
+        if cont.lower()=='n':
+            break
+    f.close()
+
+
+def club_display():     # display a table
+    f=open('club.dat','rb')
+    s='*'
+    print(s*50)
+    print('%6s'%'MID','%15s'%'MNAME','%6s'%'TYP')
+    print(s*50)
+    while True:
+        try:
+            e=pickle.load(f)
+            print('%6s'%e[0],'%15s'%e[1],'%6s'%e[2])
+        except EOFError:
+            f.close()
+            break
+    print('over')
+    
+def add_club():      # add an entry 
+    f=open('club.dat','ab')
+    while True:
+        mid=int(input('enter no:'))
+        mname=input('enter name:')
+        typ=int(input('enter type[S/L]:'))
+        rec=[mid,mname,typ]
+        pickle.dump(rec,f)
+        cont=input('do you want to add more ..... Y/N')
+        if cont.lower()=='n':
+            break
+    f.close()
+
+       
+def update_club():
+       rec=[]
+       f=open('club.dat','rb')
+       newf=open('newclub.dat','wb')
+       mid=int(input('enter mid to be updated '))
+       found=0
+       while True:
+           try:
+               rec=pickle.load(f)
+               if rec[0]==mid:
+                 rec[1]=input('enter name')
+                 rec[2]=input('enter type[S/L]')
+                 found=1
+                 pickle.dump(rec,newf)
+           except EOFError:
+                  f.close()
+                  break
+       if found==0:
+                print('sorry not found')
+       f.close()           
+       newf.close()
+       os.remove('club.dat')
+       os.rename('newclub.dat','club.dat')
+       
+
+        
+print('1.create')
+print('2.display')
+print('3.add')
+print('4.update')
+print('5.exit')
+while True:
+    ch=int(input('enter choice'))
+    if ch==1:
+        create_club()
+    elif ch==2:
+        club_display()
+    elif ch==3:
+        add_club()
+    elif ch==4:
+        update_club()
+    else:
+        break

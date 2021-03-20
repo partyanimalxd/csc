@@ -1,0 +1,79 @@
+
+def create_bookcsv():
+    f=open('book-csv1.csv','w',newline='')
+    cr=csv.writer(f)
+    while True:
+        bno=int(input("Enter book no:"))
+        bname=input("Enter book name:")
+        pri=int(input("Enter price of book:"))
+        bl=[bno,bname,pri]
+        #bl.append(bno)
+        #bl.append(bname)
+        #bl.append(pri)
+        cr.writerow(bl)
+        cont= input("Continue...?(Y/N):")
+        if cont.lower()=='n':
+            break
+    f.close()
+    
+def add_recordcsv():
+    f=open('book-csv1.csv','a',newline='')
+    cr=csv.writer(f)
+    while True:
+        bno=int(input("Enter book no:"))
+        bname=input("Enter book name:")
+        pri=int(input("Enter price of book:"))
+        bl=[bno,bname,pri]
+        cr.writerow(bl)
+        cont= input("Continue...?(Y/N)")
+        if cont.lower()=='n':
+            break
+    f.close()
+    
+def display_bookcsv():
+    f=open('book-csv1.csv')
+    cr=csv.reader(f)
+    s='-'
+    print(s*40)
+    print("%7s"%"BNO","%20s"%"BName","%8s"%"Price")
+    print(s*40)
+    for l in cr:
+        print("%7s"%l[0],"%20s"%l[1],"%8s"%l[2])
+    f.close()
+
+def search_pricecsv():
+    f=open('book-csv1.csv')
+    cr=csv.reader(f)
+    no1 =100
+    no2=200
+    for r in cr:
+        print(r[2],no1,no2)
+        print(type(r[2]),type(no1),type(no2))
+        print(r)
+        if int(r[2])>=no1 and int(r[2])<=no2:
+            s='-'
+            print(s*40)
+            print("%7s"%"BNO","%20s"%"BName","%8s"%"Price")
+            print(s*40)
+            print("%7s"%r[0],"%20s"%r[1],"%8s"%r[2])
+            break
+      
+    f.close()
+
+print('1.create')
+print('2.display')
+print('3.add')
+print('4.search')
+print('5.exit')
+while True:
+    ch=int(input('enter choice'))
+    if ch==1:
+        create_bookcsv()
+    elif ch==2:
+        display_bookcsv()
+    elif ch==3:
+        add_recordcsv()
+    elif ch==4:
+        search_pricecsv()
+    else:
+        break

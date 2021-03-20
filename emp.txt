@@ -1,0 +1,80 @@
+import pickle
+import os
+def create_emp():            #create a table
+    f=open('emp.dat','wb')
+    while True:
+        eno=int(input('enter no:'))
+        ename=input('enter name:')
+        esal=int(input('enter salary:'))
+        rec=[eno,ename,esal]
+        pickle.dump(rec,f)
+        cont=input('do you want to add more ..... Y/N')
+        if cont.lower()=='n':
+            break
+    f.close()
+
+
+def emp_display():     # display a table
+    f=open('emp.dat','rb')
+    s='*'
+    print(s*50)
+    print('%6s'%'ENO','%15s'%'NAME','%6s'%'SAL')
+    print(s*50)
+    while True:
+        try:
+            e=pickle.load(f)
+            print('%6s'%e[0],'%15s'%e[1],'%6s'%e[2])
+        except EOFError:
+            f.close()
+            break
+    print('over')
+    
+def add_emp():      # add an entry and display it
+    f=open('emp.dat','ab')
+    while True:
+        eno=int(input('enter no:'))
+        ename=input('enter name:')
+        esal=int(input('enter salary:'))
+        rec=[eno,ename,esal]
+        pickle.dump(rec,f)
+        cont=input('do you want to add more ..... Y/N')
+        if cont.lower()=='n':
+            break
+    f.close()
+    
+def search_emp_sal():         # search with salary
+       e=[]
+       f=open('emp.dat','rb')
+       eupper=20000
+       elower=10000
+       found=0
+       while True:
+         try:
+             e=pickle.load(f)
+             if e[2]>=elower and e[2]<=eupper:
+                 print(e[1])
+                 found=1
+                 break
+         except EOFError:
+             f.close()
+             if found==0:
+                   print('sorry not found')
+
+print('1.create')
+print('2.display')
+print('3.add')
+print('4.search')
+print('5.exit')
+while True:
+    ch=int(input('enter choice'))
+    if ch==1:
+        create_emp()
+    elif ch==2:
+        emp_display()
+    elif ch==3:
+        add_emp()
+    elif ch==4:
+        search_emp_sal()
+    else:
+        break
+    

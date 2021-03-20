@@ -1,0 +1,101 @@
+def vowels():
+    cnt=0
+    f=open('Poem.txt')
+    for i in f:
+        if i in 'aeiouAEIOU':
+            cnt=cnt+1
+    print(cnt)    
+vowels()
+'''---------------------------------------------------------------------'''
+def countLines():
+    f=open('Poem.txt','r')
+    x=f.readlines()
+    for i in x:
+        if i[0] in 'tT':
+            print(len(x))   
+countLines()
+'''--------------------------------------------------------------------'''
+def countword():
+    f=open('Poem.txt')
+    cnt=0
+    x=f.read()
+    word=x.split()
+    for i in word:
+        if len(i)==4:
+            cnt=cnt+1
+    f.close()
+    print('Number of 4 letter words are',cnt)
+
+countword()
+#---------------------------------------------------------------------
+def CountSpaceChars():
+    f=open('Poem.txt','r')
+    x=f.read()
+    cntSP=0
+    cntW=0
+    for i in x:
+        if i.isspace():
+            cntSP+=1
+    word=x.split()
+    for i in word:
+        if i.isalpha():
+            cntW+=1
+    print('spaces =',cntSP)
+    print('words =' ,cntW)               
+CountSpaceChars()
+#---------------------------------------------------------------------
+def countLines():
+    f=open('Poem.txt','r')
+    x=f.readlines()
+    print(len(x))   
+countLines()
+#---------------------------------------------------------------------
+def countCases():
+    f=open('Poem.txt')
+    x=f.read()
+    word=x.split()
+    cntL=0
+    cntU=0
+    for i in word:
+        if i.islower():
+            cntL+=1
+        elif i.isupper():
+            cntU+=1
+     print("Number of uppercases =",cntU)
+     print("Number of lowercases =",cntL)
+countCases()
+#--------------------------------------------------------------------
+def ChangeLine():
+    f=open('Poem.txt')
+    x=f.readlines()
+    for i in x:
+        if i[0]=='T':
+            print('#',i)
+        else:
+            print(i)
+    f.close() 
+ChangeLine()
+#---------------------------------------------------------------------
+def replaceword():
+    f=open('Poem.txt')
+    x=f.read()
+    word=x.split()
+    for i in word:
+        if i=='is':
+            print('are',end=' ')
+        else:
+            print(i,end=' ')
+replaceword()
+#---------------------------------------------------------------------
+
+def convertCase():
+    f=open('Poem.txt')
+    x=f.read()
+    f1=open('toggle.txt','w')
+    for i in x:
+        f1.write(i.swapcase())
+    f1=open('toggle.txt')
+    print(f1.read())
+    f1.close()
+    
+convertCase()

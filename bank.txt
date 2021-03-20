@@ -1,0 +1,80 @@
+def create_bank():            #create a table
+    f=open('bank.dat','wb')
+    while True:
+        actno=int(input('enter no:'))
+        aname=input('enter name:')
+        openbal=int(input('enter balance:'))
+        rec=[actno,aname,openbal]
+        pickle.dump(rec,f)
+        cont=input('do you want to add more ..... Y/N')
+        if cont.lower()=='n':
+            break
+    f.close()
+
+
+def bank_display():     # display a table
+    f=open('bank.dat','rb')
+    s='*'
+    print(s*50)
+    print('%6s'%'ACTNO','%15s'%'ANAME','%6s'%'OPENBAL')
+    print(s*50)
+    while True:
+        try:
+            e=pickle.load(f)
+            print('%6s'%e[0],'%15s'%e[1],'%6s'%e[2])
+        except EOFError:
+            f.close()
+            break
+    print('over')
+    
+def add_bank():      # add an entry 
+    f=open('bank.dat','ab')
+    while True:
+        actno=int(input('enter no:'))
+        aname=input('enter name:')
+        openbal=int(input('enter balance:'))
+        rec=[actno,aname,oepnbal]
+        pickle.dump(rec,f)
+        cont=input('do you want to add more ..... Y/N')
+        if cont.lower()=='n':
+            break
+    f.close()
+
+def search_bank_actno():           #search with name
+       e=[]
+       f=open('bank.dat','rb')
+       actno=int(input('enter account no to be searched'))
+       found=0
+       s='*'
+       print(s*50)
+       print('%6s'%'ACTNO','%15s'%'ANAME','%6s'%'OPENBAL')
+       print(s*50)
+       while True:
+         try:
+             e=pickle.load(f)
+             if e[1]==enam:
+                 print('%6s'%e[0],'%15s'%e[1],'%6s'%e[2])
+                 found=1
+                 break
+         except EOFError:
+             f.close()
+             if found==0:
+                   print('sorry not found')
+
+print('1.create')
+print('2.display')
+print('3.add')
+print('4.search')
+print('5.exit')
+while True:
+    ch=int(input('enter choice'))
+    if ch==1:
+        create_bank()
+    elif ch==2:
+        bank_display()
+    elif ch==3:
+        add_bank()
+    elif ch==4:
+        search_bank_actno()
+    else:
+        break
